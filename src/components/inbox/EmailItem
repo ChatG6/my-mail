@@ -1,0 +1,31 @@
+import React from 'react';
+import { Check, Star } from 'lucide-react';
+import { formatDate } from '../../utils/formatters';
+
+const EmailItem = ({ email, onSelect }) => {
+  return (
+    <div 
+      className={`p-4 flex items-center space-x-4 border-b hover:bg-gray-50 cursor-pointer ${
+        !email.is_read ? 'bg-blue-50' : ''
+      }`}
+      onClick={onSelect}
+    >
+      <div className="flex items-center space-x-2">
+        <Check className="text-gray-400 w-5 h-5" />
+        <Star className={`w-5 h-5 ${email.starred ? 'text-yellow-500' : 'text-gray-400'}`} />
+      </div>
+      <div className="flex-1 min-w-0">
+        <div className="flex items-center space-x-2">
+          <span className="truncate font-semibold">{email.sender.name}</span>
+          <span className="text-sm text-gray-500 truncate">{email.sender.email}</span>
+        </div>
+        <div className="truncate">{email.title}</div>
+      </div>
+      <div className="text-sm text-gray-500">
+        {formatDate(email.send_date)}
+      </div>
+    </div>
+  );
+};
+
+export default EmailItem;
