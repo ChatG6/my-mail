@@ -1,0 +1,45 @@
+// Date formatting
+export const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  
+  // Today, Yesterday, or specific date
+  const today = new Date();
+  const yesterday = new Date(today);
+  yesterday.setDate(today.getDate() - 1);
+
+  if (date.toDateString() === today.toDateString()) {
+    return date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+  } else if (date.toDateString() === yesterday.toDateString()) {
+    return 'Yesterday';
+  } else {
+    return date.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric'
+    });
+  }
+};
+
+// Truncate long text
+export const truncateText = (text, maxLength = 50) => {
+  if (!text) return '';
+  return text.length > maxLength 
+    ? text.substring(0, maxLength) + '...' 
+    : text;
+};
+
+// Email validation
+export const validateEmail = (email) => {
+  const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  return re.test(String(email).toLowerCase());
+};
+
+// Get user initials for avatar
+export const getInitials = (name) => {
+  if (!name) return '';
+  return name
+    .split(' ')
+    .map(word => word.charAt(0))
+    .join('')
+    .toUpperCase()
+    .slice(0, 2);
+};
